@@ -4,6 +4,8 @@ import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichSpout;
+import backtype.storm.tuple.Fields;
+import hyperclient.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +19,8 @@ public class HyperdexSpout extends BaseRichSpout {
 
     private SpoutOutputCollector spoutOutputCollector;
 
+    private transient HyperClient hyperClient = new HyperClient("127.0.0.1", 1982);
+
     @Override
     public void open(Map conf, TopologyContext context, SpoutOutputCollector spoutOutputCollector) {
         this.spoutOutputCollector = spoutOutputCollector;
@@ -29,6 +33,7 @@ public class HyperdexSpout extends BaseRichSpout {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
+        outputFieldsDeclarer.declare(new Fields("none"));
         throw new UnsupportedOperationException();
     }
 }

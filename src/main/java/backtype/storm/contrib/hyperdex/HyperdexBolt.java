@@ -7,6 +7,7 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import hyperclient.*;
 
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public class HyperdexBolt extends BaseRichBolt {
     private static Logger LOGGER = LoggerFactory.getLogger(HyperdexBolt.class);
 
     private OutputCollector collector;
+
+    private transient HyperClient hyperClient = new HyperClient("127.0.0.1", 1982);
 
     @Override
     public void execute(Tuple input) {
